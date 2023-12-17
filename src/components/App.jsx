@@ -7,8 +7,6 @@ import { Loader } from './Loader/Loader';
 import toast, { Toaster } from 'react-hot-toast';
 import { GlobalStyle } from './GlobalStyle';
 
-// ... (ваш импорт и другой код)
-
 export const App = () => {
   const [images, setImages] = useState([]);
   const [query, setQuery] = useState('');
@@ -34,7 +32,7 @@ export const App = () => {
     };
 
     if (page === 1) {
-      setImages([]); // Сбрасываем изображения, если это первая страница
+      setImages([]); 
     }
 
     if (query !== '') {
