@@ -31,10 +31,6 @@ export const App = () => {
       }
     };
 
-    if (page === 1) {
-      setImages([]); 
-    }
-
     if (query !== '') {
       fetchImages();
     }
