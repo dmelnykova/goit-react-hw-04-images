@@ -7,6 +7,8 @@ import { Loader } from './Loader/Loader';
 import toast, { Toaster } from 'react-hot-toast';
 import { GlobalStyle } from './GlobalStyle';
 
+// ... (ваш импорт и другой код)
+
 export const App = () => {
   const [images, setImages] = useState([]);
   const [query, setQuery] = useState('');
@@ -18,7 +20,7 @@ export const App = () => {
     const fetchImages = async () => {
       try {
         setIsLoading(true);
-        
+
         const { hits, totalHits } = await getImages(query, page);
 
         setImages((prevImages) => [...prevImages, ...hits]);
@@ -31,11 +33,14 @@ export const App = () => {
       }
     };
 
-    if (page === 1 || query !== '') {
+    if (page === 1) {
+      setImages([]); // Сбрасываем изображения, если это первая страница
+    }
+
+    if (query !== '') {
       fetchImages();
     }
   }, [query, page]);
-
 
   const onSubmitData = (newQuery) => {
     setQuery(newQuery);
@@ -44,19 +49,18 @@ export const App = () => {
   };
 
   const onLoadMore = () => {
-    setPage(prev => prev + 1);
+    setPage((prev) => prev + 1);
   };
-
 
   return (
     <div>
       <SearchBar onSubmitData={onSubmitData} />
       {isLoading && <Loader />}
       {images.length > 0 && <ImageGallery data={images} />}
-      {totalPages > page && <Button onLoadMore={onLoadMore}/>}
+      {totalPages > page && <Button onLoadMore={onLoadMore} />}
       <GlobalStyle />
       <Toaster />
     </div>
   );
-}
+};
 
