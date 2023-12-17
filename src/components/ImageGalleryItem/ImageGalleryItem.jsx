@@ -1,38 +1,30 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { Item } from './ImageGalleryItem.styled';
 import Modal from 'components/Modal/Modal';
 
-export class ImageGalleryItem extends Component {
-  state = {
-    isModalOpen: false,
+export const ImageGalleryItem = ({ image, tags, largeImage }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  
+  const modalToggle = () => {
+    setModalOpen(prevState => !prevState);
   };
 
-  modalToggle = () => {
-    this.setState(prevState => ({
-      isModalOpen: !prevState.isModalOpen,
-    }));
-  };
-
-  render() {
-    const { isModalOpen } = this.state;
-    const { image, tags, largeImage } = this.props;
-    return (
-      <Item>
-        <img
-          src={image}
-          alt={tags}
-          onClick={this.modalToggle}
-          height="250px"
-        />
-        <Modal
-          isOpen={isModalOpen}
-          isClose={this.modalToggle}
-          url={largeImage}
-          tags={tags}
-        />
-      </Item>
-    );
-  }
+  return (
+    <Item>
+      <img
+        src={image}
+        alt={tags}
+        onClick={modalToggle}
+        height="250px"
+      />
+      <Modal
+        isOpen={isModalOpen}
+        isClose={modalToggle}
+        url={largeImage}
+        tags={tags}
+      />
+    </Item>
+  );
 }
 
 export default ImageGalleryItem;
